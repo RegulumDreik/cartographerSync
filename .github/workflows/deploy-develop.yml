@@ -41,7 +41,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          load: cr.selcloud.ru/dkapust
-          tags: cartographer-sync:latest
+          tags: cr.selcloud.ru/dkapust/cartographer-sync:latest
           file: ./dockerfiles/cartographer_sync.dockerfile
           context: ./
