@@ -49,7 +49,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Deploy
-      uses: deliverybot/helm@v2
+      uses: deliverybot/helm@v1
       with:
         release: cartographer-sync
         namespace: stage01
