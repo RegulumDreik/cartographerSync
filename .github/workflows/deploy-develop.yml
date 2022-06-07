@@ -45,7 +45,7 @@ jobs:
           context: ./
   deploy:
     runs-on: ubuntu-latest
-    needs: [linter, publish]
+    needs: [publish]
     steps:
     - uses: actions/checkout@v1
     - name: Deploy
