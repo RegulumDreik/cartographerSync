@@ -43,13 +43,13 @@ jobs:
           tags: cr.selcloud.ru/dkapust/cartographer-sync:develop
           file: ./dockerfiles/cartographer_sync.dockerfile
           context: ./
-  deploy:
+  deployment:
     runs-on: ubuntu-latest
     needs: [publish]
     steps:
     - uses: actions/checkout@v1
     - name: Deploy
-      uses: deliverybot/helm@v1
+      uses: deliverybot/helm
       with:
         release: cartographer-sync
         namespace: stage01
