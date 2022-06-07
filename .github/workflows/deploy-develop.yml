@@ -24,6 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [linter]
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -40,5 +42,5 @@ jobs:
         with:
           push: true
           tags: cartographer-sync:latest
-          file: cartographerSync/dockerfiles/cartographer_sync.dockerfile
-          context: cartographerSync/
+          file: ./dockerfiles/cartographer_sync.dockerfile
+          context: ./
