@@ -55,6 +55,6 @@ jobs:
         namespace: stage01
         chart: helm-chart/Chart.yaml
         token: '${{ github.token }}'
-        value-files: '[helm-chart/values-stage01.yaml]'
+        value-files: 'helm-chart/values-stage01.yaml'
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
