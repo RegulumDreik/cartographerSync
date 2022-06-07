@@ -10,8 +10,10 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: install poetry
-        uses: actions/install-poetry.yml
+      - name: Update pip
+        run: pip install pip
+      - name: Install poetry
+        run: pip install pip install poetry==1.1.13
       - name: Install dependencies
         run: poetry install --ansi
       - name: Linter run

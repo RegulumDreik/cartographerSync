@@ -1,9 +1,0 @@
-name: 'Install Poetry'
-description: 'Installs poetry to python container.'
-runs:
-  using: "composite"
-  steps:
-    - run: pip install pip==22.0.4
-      shell: bash
-    - run: pip install poetry==1.1.13
-      shell: bash
