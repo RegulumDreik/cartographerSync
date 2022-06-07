@@ -1,0 +1,16 @@
+{{- if .Values.rest }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    {{- include "labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ include "fullname" . }}-rest
+  name: {{ include "fullname" . }}-rest
+spec:
+  ports:
+  - port: {{.Values.rest.port}}
+    targetPort: {{.Values.rest.port}}
+  selector:
+    app.kubernetes.io/component: {{ include "fullname" . }}-rest
+{{- end -}}

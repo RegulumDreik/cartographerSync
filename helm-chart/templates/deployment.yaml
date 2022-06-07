@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    {{- include "labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ include "fullname" . }}-rest
+  name: {{ include "fullname" . }}-rest
+spec:
+  replicas: {{ .Values.rest.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: {{ include "fullname" . }}-rest
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        {{- include "prometheusAnnotation" . | nindent 8 }}
+      labels:
+        app.kubernetes.io/component: {{ include "fullname" . }}-rest
+    spec:
+      {{- include "pullSecret" . | nindent 6 }}
+      containers:
+        - args:
+          - uvicorn
+          - app:app
+          - --host
+          - '0.0.0.0'
+          - --port
+          - '{{.Values.rest.port}}'
+          image: {{ .Values.rest.imageName }}:{{ .Values.imageTag }}
+          imagePullPolicy: {{.Values.imagesPullPolicy}}
+          name: {{ include "fullname" . }}-rest
+          ports:
+          - containerPort: {{.Values.rest.port}}
+          resources: {}
+          env:
+            {{- range $key, $val := .Values.rest.env }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+            {{- end }}
+            {{- include "commonEnv" . | nindent 12 }}
+      restartPolicy: Always

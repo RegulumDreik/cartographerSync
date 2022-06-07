@@ -1,0 +1,34 @@
+{{- if .Values.rest }}
+{{- if .Values.rest.paths }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    {{- include "labels" . | nindent 4 }}
+    app.kubernetes.io/component: {{ include "fullname" . }}-rest
+  name: {{ include "fullname" . }}-rest
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-body-size: 40m
+spec:
+  tls:
+  - hosts:
+    - {{ .Values.domain }}
+    secretName: {{ include "fullname" . }}-rest-tls
+  rules:
+  - host: {{ .Values.domain }}
+    http:
+      paths:
+        {{- range .Values.rest.paths }}
+        - path: {{ . }}
+          pathType: Prefix
+          backend:
+            service:
+              name: {{ include "fullname" $ }}-rest
+              port:
+                number: {{ $.Values.rest.port }}
+        {{- end }}
+{{- end -}}
+{{- end -}}

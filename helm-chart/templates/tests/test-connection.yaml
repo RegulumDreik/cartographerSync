@@ -1,0 +1,17 @@
+{{- if .Values.rest }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "fullname" . }}-test-rest-connection"
+  labels:
+    {{- include "labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: check
+      image: busybox
+      command: ['nc']
+      args: ['-w', '1', '{{ include "fullname" . }}-rest', '{{ .Values.rest.port }}']
+  restartPolicy: Never
+{{- end -}}

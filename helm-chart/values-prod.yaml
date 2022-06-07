@@ -1,0 +1,4 @@
+# to upgrade
+# helm upgrade -n prod cartographer-sync ./helm-chart -f ./helm-chart/values-prod.yaml
+
+environment: prod

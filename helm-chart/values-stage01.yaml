@@ -1,0 +1,25 @@
+# to upgrade
+# helm upgrade -n stage01 cartographer-sync ./helm-chart -f ./helm-chart/values-stage01.yaml
+
+environment: stage
+
+cors:
+  - "http://localhost:3000"
+  - "http://stage01.dkapust.ru"
+  - "https://stage01.dkapust.ru"
+
+imagesPullPolicy: Always
+imagePullSecret: selectel-regcred-stage01
+imageTag: develop
+
+debug: true
+
+domain: stage01.dkapust.ru
+
+rest:
+  imageName: cr.selcloud.ru/dkapust/cartographer-sync
+  port: 8080
+  replicaCount: 1
+  env:
+  paths:
+    - /api
