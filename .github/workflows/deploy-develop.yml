@@ -50,4 +50,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Deploy
-      run: helm upgrade --debug --kubeconfig ${{ secrets.KUBECONFIG }} --namespace stage01 cartographer-sync ./helm-chart/Chart.yaml -f ./helm-chart/values-stage01.yaml
+      run: helm upgrade --debug --kubeconfig ${{ secrets.KUBECONFIG }} --namespace stage01 cartographer-sync ./helm-chart -f ./helm-chart/values-stage01.yaml
