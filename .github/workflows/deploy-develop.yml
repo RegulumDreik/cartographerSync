@@ -36,11 +36,10 @@ jobs:
           registry: cr.selcloud.ru/dkapust
           username: ${{ secrets.SELECTEL_CR_USERNAME }}
           password: ${{ secrets.SELECTEL_CR_PASSWORD }}
-      - run: ls
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: cr.selcloud.ru/dkapust/cartographer-sync:latest
+          tags: cr.selcloud.ru/dkapust/cartographer-sync:develop
           file: ./dockerfiles/cartographer_sync.dockerfile
           context: ./
