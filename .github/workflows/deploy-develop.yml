@@ -43,18 +43,17 @@ jobs:
           tags: cr.selcloud.ru/dkapust/cartographer-sync:develop
           file: ./dockerfiles/cartographer_sync.dockerfile
           context: ./
-  deployment:
+  deploy:
     runs-on: ubuntu-latest
-    needs: [publish]
+    container: dtzar/helm-kubectl:latest
+    needs: [linter, publish]
     steps:
     - uses: actions/checkout@v1
     - name: Deploy
-      uses: glopezep/helm@v1.7.1
-      with:
-        release: cartographer-sync
-        namespace: stage01
-        chart: helm-chart/Chart.yaml
-        token: '${{ github.token }}'
-        value-files: 'helm-chart/values-stage01.yaml'
-      env:
-        KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
+      run: helm upgrade
+      --debug
+      --kubeconfig ${{ secrets.KUBECONFIG }}
+      --namespace stage01
+      cartographer-sync
+      ./helm-chart/Chart.yaml
+      -f ./helm-chart/values-stage01.yaml
