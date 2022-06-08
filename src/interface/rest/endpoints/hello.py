@@ -20,4 +20,4 @@ def hello_view():
     Returns:
         Hello string
     """
-    return 'Hello'
+    return 'Hello4'
