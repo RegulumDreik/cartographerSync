@@ -52,7 +52,7 @@ jobs:
     - name: Create kubeconfig
       run: |
         mkdir ${HOME}/.kube
-        echo ${{ secrets.KUBECONFIG }} > ${HOME}/.kube/config
+        echo "${{ secrets.KUBECONFIG }}" > ${HOME}/.kube/config
         cat ${HOME}/.kube/config
     - name: Deploy
       run: helm upgrade --debug --namespace stage01 cartographer-sync ./helm-chart -f ./helm-chart/values-stage01.yaml
