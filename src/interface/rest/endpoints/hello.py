@@ -12,7 +12,7 @@ hello_router = APIRouter(
 
 
 @hello_router.get(
-    '/hello',
+    '/api/hello',
 )
 def hello_view():
     """Greeting view, for test.
