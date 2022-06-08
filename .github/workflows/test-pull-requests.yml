@@ -1,0 +1,22 @@
+name: Test pull request
+on:
+  pull_request:
+    branches:
+      - develop
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    container: python:3.10-slim
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Update pip
+        run: pip install pip
+      - name: Install poetry
+        run: pip install pip install poetry==1.1.13
+      - name: Install dependencies
+        run: poetry install
+        env:
+          POETRY_VIRTUALENVS_CREATE: false
+      - name: Linter run
+        run: flake8 ./src ./app.py
