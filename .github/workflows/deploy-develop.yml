@@ -40,7 +40,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: cr.selcloud.ru/dkapust/cartographer-sync:develop, cr.selcloud.ru/dkapust/cartographer-sync:${{ GITHUB_SHA }}
+          tags: cr.selcloud.ru/dkapust/cartographer-sync:develop, cr.selcloud.ru/dkapust/cartographer-sync:${{ github.sha }}
           file: ./dockerfiles/cartographer_sync.dockerfile
           context: ./
   deploy:
@@ -55,4 +55,4 @@ jobs:
         echo "${{ secrets.KUBECONFIG }}" > ${HOME}/.kube/config
         cat ${HOME}/.kube/config
     - name: Deploy
-      run: helm upgrade --debug --namespace stage01 cartographer-sync ./helm-chart -f ./helm-chart/values-stage01.yaml --set imageTag=${{ GITHUB_SHA }}
+      run: helm upgrade --debug --namespace stage01 cartographer-sync ./helm-chart -f ./helm-chart/values-stage01.yaml --set imageTag=${{ github.sha }}
