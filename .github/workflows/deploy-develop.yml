@@ -49,5 +49,10 @@ jobs:
     needs: [linter, publish]
     steps:
     - uses: actions/checkout@v1
+    - name: Create kubeconfig
+      run: |
+        mkdir ${HOME}/.kube
+        echo ${{ secrets.KUBECONFIG }} | base64 --decode > ${HOME}/.kube/config
+        cat ${HOME}/.kube/config
     - name: Deploy
-      run: helm upgrade --debug --kubeconfig ${{ secrets.KUBECONFIG }} --namespace stage01 cartographer-sync ./helm-chart -f ./helm-chart/values-stage01.yaml
+      run: helm upgrade --debug --namespace stage01 cartographer-sync ./helm-chart -f ./helm-chart/values-stage01.yaml
