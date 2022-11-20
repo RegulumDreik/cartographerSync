@@ -6,3 +6,4 @@ app = FastAPI()
 
 app.include_router(api_router)
 print('Hello')
+print('hello')
